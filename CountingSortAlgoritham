@@ -1,0 +1,30 @@
+class Solution {
+public:
+    //Counting sort algoritham
+    vector<int> sortArray(vector<int>& nums) {
+        int sz = nums.size();
+
+        int mini = *min_element(nums.begin() , nums.end());
+        int maxi = *max_element(nums.begin() , nums.end());
+        
+        // creating array of size maximum and minimum to accomoaye all the element
+        vector<int> countArr(maxi - mini +  1 , 0);
+
+        for(auto &ele: nums) {
+            int updatedElement = ele - mini;
+            //updating element so they can become gretaer then 0 ... this is done for hashing of negative elements
+            countArr[updatedElement]++;
+        }
+        vector<int> sortedArray;
+        for(int i = 0; i < countArr.size(); i++) {
+            int updatedElement = i;
+            int freq = countArr[i];
+
+            int originalElement = i + mini;
+            while(freq--) {
+                sortedArray.push_back(originalElement);
+            }  
+        }
+        return sortedArray;
+    }
+};
